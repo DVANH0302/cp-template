@@ -1,0 +1,29 @@
+import sys
+input = sys.stdin.readline
+
+def solve(x, y):
+
+    if x + y == x ^ y:
+        return " ".join([str(y+x), "0"])
+
+    maxi = x + y
+    i = 0
+    while y + i <= maxi:
+        if maxi == (x-i) ^ (y+i):
+            out = [maxi, i]
+            break
+        else:
+            i += 1
+
+    return " ".join([str(num) for num in out])
+
+def main():
+    t = int(input())
+    out = []
+    for _ in range(t):
+        x,y = list(map(int, input().split()))
+        out.append(solve(x, y))
+    print('\n'.join(out))
+
+if __name__ == '__main__':
+    main()
