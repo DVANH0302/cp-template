@@ -1,0 +1,42 @@
+CPPFLAGS_DEBUG="-Wall -Wextra -Wshadow -std=c++17 -g -fsanitize=undefined,address -fno-sanitize-recover -DLOCAL"
+
+# compile only:  c foo.cpp -o foo
+alias c="g++ $CPPFLAGS_DEBUG"
+
+# compile + run C++:
+#   rc                  -> main.cpp
+#   rc foo.cpp          -> foo.cpp
+#   rc foo.cpp in.txt   -> foo.cpp, stdin from in.txt
+# prints to screen AND saves to out.txt
+rc() {
+    local src="${1:-main.cpp}"
+    local bin="${src%.cpp}"
+    g++ $CPPFLAGS_DEBUG "$src" -o "$bin" || return
+    if [ -n "$2" ]; then "./$bin" < "$2" | tee out.txt
+    else "./$bin" | tee out.txt
+    fi
+}
+
+# stress test C++:  stc   -> compiles stress.cpp with -O2 (no sanitizers, for speed) and runs it
+stc() { g++ -Wall -std=c++17 -O2 stress.cpp -o stress && ./stress; }
+
+# new C++ problem:  npc A   -> copies ctemplate to ./A, cds in, opens main.cpp/in.txt/out.txt in VS Code
+npc() { cp -r /mnt/c/Code/competitive-programming/ctemplate "$1" && cd "$1" && code -r main.cpp in.txt out.txt; }
+
+# run Python:
+#   rp                  -> sol.py
+#   rp sol.py           -> sol.py
+#   rp sol.py in.txt    -> sol.py, stdin from in.txt
+# prints to screen AND saves to out.txt
+rp() {
+    local src="${1:-sol.py}"
+    if [ -n "$2" ]; then python3 "$src" < "$2" | tee out.txt
+    else python3 "$src" | tee out.txt
+    fi
+}
+
+# stress test Python:  stp   -> runs stress.py
+stp() { python3 stress.py; }
+
+# new Python problem:  npp A   -> copies pytemplate to ./A, cds in, opens sol.py/in.txt/out.txt in VS Code
+npp() { cp -r /mnt/c/Code/competitive-programming/pytemplate "$1" && cd "$1" && code -r sol.py in.txt out.txt; }

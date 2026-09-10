@@ -9,13 +9,6 @@ using namespace std;
 #endif
 
 using ll = long long;
-using pi = pair<int, int>;
-using vi = vector<int>;
-#define pb push_back
-#define f first
-#define s second
-#define all(x) begin(x), end(x)
-#define sz(x) (int)(x).size()
 
 void solve() {
   int n;

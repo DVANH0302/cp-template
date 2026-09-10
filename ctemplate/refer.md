@@ -10,7 +10,6 @@ Assumes `#include <bits/stdc++.h>` and `using namespace std;`.
 
 ## Table of Contents
 
-- [W. My workflow (commands & dbg)](#w-my-workflow-commands--dbg)
 - [0. Which container do I want?](#0-which-container-do-i-want)
 - [1. Template & fast I/O](#1-template--fast-io)
 - [2. Types, limits, overflow](#2-types-limits-overflow)
@@ -25,50 +24,6 @@ Assumes `#include <bits/stdc++.h>` and `using namespace std;`.
 - [11. Functions, lambdas, references](#11-functions-lambdas-references)
 - [12. Misc (random, arrays, bitset, modular math, timing)](#12-misc-random-arrays-bitset-modular-math-timing)
 - [13. Symptom → likely cause](#13-symptom--likely-cause)
-
----
-
-## W. My workflow (commands & dbg)
-
-Shell functions live in `~/.bash_aliases`. `ctemplate/` holds `main.cpp`, `debug.h`, `stress.cpp`, `in.txt`.
-
-| Command | What it does |
-|---|---|
-| `c foo.cpp -o foo` | compile only, with warnings + sanitizers (`-Wall -Wextra -Wshadow -g -fsanitize=undefined,address`) |
-| `cr` | compile + run `main.cpp` |
-| `cr foo.cpp` | compile + run `foo.cpp` |
-| `cr foo.cpp in.txt` | compile + run `foo.cpp` with stdin from `in.txt` |
-| `st` | compile `stress.cpp` with `-O2` (no sanitizers — needs to run fast) and run it |
-| `np A` | copy `ctemplate/` → `./A` and `cd` into it — one call per problem in a contest |
-
-```bash
-mkdir cf1234 && cd cf1234
-np A                    # sets up problem A from the template
-cr main.cpp in.txt      # compile + test against in.txt
-```
-
-**`dbg` — debug printing**
-
-Defined in `main.cpp`:
-```cpp
-#ifdef LOCAL
-#include "debug.h"
-#define dbg(x) cerr << #x << " = " << (x) << '\n'
-#else
-#define dbg(x)
-#endif
-```
-
-- `debug.h` supplies `operator<<` overloads for `vector`, `pair`, `map`, `set`, `tuple`, etc. so containers print like Python (`[1, 2, 3]`, `{a: 1, b: 2}`).
-- `dbg(x)` prints `x = <value>` to **stderr** (`cerr`), so it never pollutes the judge's expected stdout.
-- Only active when compiled with `-DLOCAL` (which `c`/`cr` always pass) — on a real judge, `LOCAL` is undefined, so `dbg(x)` expands to nothing and `debug.h` isn't even included.
-
-```cpp
-vector<int> a = {1, 2, 3};
-dbg(a);   // stderr: a = [1, 2, 3]
-```
-
-[↑ back to top](#table-of-contents)
 
 ---
 
