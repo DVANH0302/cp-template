@@ -1,24 +1,20 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-#ifdef LOCAL
+#if defined(LOCAL) || defined(CPH)
 #include "debug.h"
-#define dbg(x) cerr << #x << " = " << (x) << '\n'
 #else
 #define dbg(x)
 #endif
 
 using ll = long long;
 
-void solve() {
-  int n;
-  cin >> n;
-  cout << n << '\n';
-}
+void solve() {}
 
 int main() {
   ios::sync_with_stdio(false);
-  cin.tie(nullptr);
+  cin.tie(0);
+  cout.tie(0);
 
   // int t;
   // cin >> t;
