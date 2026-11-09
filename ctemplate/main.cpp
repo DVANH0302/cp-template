@@ -9,6 +9,12 @@ using namespace std;
 
 using ll = long long;
 
+#define rep(i, a, b) for (int i = (a); i < (b); ++i)
+#define trav(it, v) for (auto &it : v)
+#define all(v) (v).begin(), (v).end()
+
+const int mod = 1000000000 + 7;
+
 void solve() {}
 
 int main() {
